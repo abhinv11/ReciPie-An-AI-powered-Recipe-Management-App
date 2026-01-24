@@ -5,10 +5,14 @@ from fastapi.responses import HTMLResponse
 from config.db import conn
 from fastapi.templating import Jinja2Templates
 from schemas.schemas import RecipeEntity, RecipesEntity
-
+import os
 
 recipe = APIRouter()
-templates = Jinja2Templates(directory="templates")
+
+# Get absolute path for templates
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+templates_dir = os.path.join(base_dir, "templates")
+templates = Jinja2Templates(directory=templates_dir)
 
 db = conn["ReciPie"]
 collection = db["recipie"]

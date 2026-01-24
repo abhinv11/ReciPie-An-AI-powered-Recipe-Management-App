@@ -11,5 +11,8 @@
       "src": "/(.*)",
       "dest": "ReciPie/index.py"
     }
-  ]
+  ],
+  "env": {
+    "PYTHONPATH": "ReciPie"
+  }
 }
