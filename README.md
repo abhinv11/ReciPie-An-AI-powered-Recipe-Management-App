@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-**Application URL:** (https://assignment-durapid.vercel.app/)
+**Application URL:** )
 
 ## 📁 Project Structure
 
