@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from models.models import Recipe
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from config.db import conn
 from fastapi.templating import Jinja2Templates
 from schemas.schemas import RecipeEntity, RecipesEntity

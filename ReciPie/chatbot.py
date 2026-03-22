@@ -1,25 +1,13 @@
-import getpass
 import os
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
-if "GROQ_API_KEY" not in os.environ:
-    os.environ["GROQ_API_KEY"] = getpass.getpass("Enter your Groq API key: ")
-
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
-
-# Initialize the LLM
-llm = ChatGroq(
-    model="llama-3.1-8b-instant",
-    temperature=0.7,
-    max_tokens=2000,
-    timeout=None,
-)
 
 # Create a structured prompt template
 prompt = ChatPromptTemplate.from_messages([
@@ -48,8 +36,28 @@ Be friendly, encouraging, and precise in your measurements and instructions.""")
 # Create output parser
 output_parser = StrOutputParser()
 
-# Create the chain
-conversation_chain = prompt | llm | output_parser
+# Lazy initialize the chain so app startup does not fail if GROQ_API_KEY is missing.
+conversation_chain = None
+
+
+def _ensure_chain():
+    global conversation_chain
+    if conversation_chain is not None:
+        return
+
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "GROQ_API_KEY is not set. Add it in Vercel Environment Variables and redeploy."
+        )
+
+    llm = ChatGroq(
+        model="llama-3.1-8b-instant",
+        temperature=0.7,
+        max_tokens=2000,
+        timeout=None,
+    )
+    conversation_chain = prompt | llm | output_parser
 
 # Initialize conversation history
 chat_history = []
@@ -65,6 +73,7 @@ def get_recipe_response(user_query: str) -> str:
         The AI's response
     """
     global chat_history
+    _ensure_chain()
     
     # Invoke the chain
     response = conversation_chain.invoke({
