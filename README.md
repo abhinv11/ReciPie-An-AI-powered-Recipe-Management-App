@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-**Application URL:** )
+**Application URL: [Recipie](reci-pie-an-ai-powered-recipe-management-at86ldgnk.vercel.app)**
 
 ## 📁 Project Structure
 
