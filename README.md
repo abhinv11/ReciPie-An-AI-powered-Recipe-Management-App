@@ -7,7 +7,7 @@
 ## 📁 Project Structure
 
 ```
-Assignment_durapid/
+/
 ├── ReciPie/                    # Main application directory
 │   ├── config/                 # Database configuration
 │   ├── models/                 # Pydantic models
