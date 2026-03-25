@@ -126,8 +126,8 @@ curl http://localhost:8000
 
 ## 📧 Submission
 
-**GitHub Repository:** https://github.com/abhinv11/Assignment_durapid
-**Live Demo:** [Add after Vercel deployment]
+**GitHub Repository:** 
+**Live Demo:** 
 
 ## 👨‍💻 Author
 
